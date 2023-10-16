@@ -2,19 +2,6 @@ import { useEffect, useState } from "react"
 import { ALL_BOOKS } from "../services/queries"
 import { useQuery } from "@apollo/client"
 
-export const updateCache = (cache, query, addedBook) => {
-  const uniqueByTitle = (book) => {
-    let seen = new Set()
-    return book.filter((item) => {
-      return seen.has(item.title) ? false : seen.add(item.title)
-    })
-  }
-
-  cache.updateQuery(query, (data) => {
-    console.log(data)
-  })
-}
-
 const Books = (props) => {
   const { data, refetch } = useQuery(ALL_BOOKS, { fetchPolicy: "network-only" })
 
@@ -23,7 +10,7 @@ const Books = (props) => {
 
   useEffect(() => {
     refetch({ genre: null })
-  }, [props.show]) //eslisnt-disable-line
+  }, [props.show]) //eslint-disable-line
 
   useEffect(() => {
     let booksByGenre = []

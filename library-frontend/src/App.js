@@ -5,8 +5,7 @@ import NewBook from "./components/NewBook"
 import LoginForm from "./components/LoginForm"
 import Recommended from "./components/Recommended"
 import { useApolloClient, useQuery, useSubscription } from "@apollo/client"
-import { ALL_BOOKS, BOOK_ADDED, ME } from "./services/queries"
-import { updateCache } from "./components/Books"
+import { BOOK_ADDED, ME } from "./services/queries"
 
 const App = () => {
   const [page, setPage] = useState("authors")
@@ -36,7 +35,6 @@ const App = () => {
     onData: ({ data }) => {
       const alertText = `${data.data.bookAdded.title} by ${data.data.bookAdded.author.name} has been added to books`
       window.alert(alertText)
-      updateCache(client.cache, { query: ALL_BOOKS }, data.data.bookAdded)
     },
   })
 
